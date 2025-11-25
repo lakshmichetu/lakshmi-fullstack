@@ -1,0 +1,301 @@
+<!-- Task 1
+create a texbox to Enter number
+create Button with name check -
+on btn click check if Entered no is even or odd
+Display result in strong tag beside button -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="col-3">
+        <input type="text" id="textBox" placeholder="Enter Number" class="form-control" />
+    </div>
+    <strong id="result"></strong>
+    <button onclick="checkBtn()">Check</button>
+    <script>
+
+        function checkBtn() {
+            var storedata = document.getElementById('textBox').value;
+            if (storedata.trim() === "") {
+                document.getElementById('result').innerText = 'Enter a number';
+                return;
+            }
+            num = Number(storedata);
+            if (isNaN(num)) {
+                document.getElementById('result').innerText = 'Invalid number'
+                return;
+            }
+            if (num % 2 === 0) {
+                document.getElementById('result').innerText = 'Even';
+            } else {
+                document.getElementById('result').innerText = 'Odd';
+            }
+        }
+    </script>
+
+    <!-- Task 2
+Create 3 textbox to provide integer values
+cerate a button - check max number
+on click of button - find max numbers and print it in p tag -->
+    <div class="row">
+        <div class="col-3">
+            <input class="form-control" id="textbox1" oninput="toggleButton()" />
+        </div>
+        <div class="col-3">
+            <input class="form-control" id="textbox2" oninput="toggleButton()" />
+        </div>
+        <div class="col-3">
+            <input class="form-control" id="textbox3" oninput="toggleButton()" />
+        </div>
+    </div>
+    <p id="result1"></p>
+
+    <button id="checkBtn" class="btn btn-primary" onClick="findmaxNum()" disabled>Check Max Number</button>
+    <style>
+        #checkBtn:disabled {
+            background-color: #b5b5b5 !important;
+            border-color: #b5b5b5 !important;
+            cursor: not-allowed;
+        }
+    </style>
+    <script>
+        var isBtn = false;
+        function findmaxNum() {
+            var storeMaxnum1 = document.getElementById('textbox1').value;
+            var storeMaxnum2 = document.getElementById('textbox2').value;
+            var storeMaxnum3 = document.getElementById('textbox3').value;
+
+            if (storeMaxnum1.trim() === '' || storeMaxnum2.trim() === '' || storeMaxnum3.trim() === '') {
+                document.getElementById('result1').innerText = "Enter a number"
+                return;
+            }
+            let num1 = Number(storeMaxnum1);
+            let num2 = Number(storeMaxnum2);
+            let num3 = Number(storeMaxnum3);
+            if (isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+                document.getElementById('result1').innerText = "invalid number";
+                return;
+            }
+
+
+            let res = ''
+            if (num1 > num2 && num1 > num3) {
+                res = num1 + " is the largest number";
+
+            } else if (num2 > num1 && num2 > num3) {
+                res = num2 + " is the largest number";
+            } else {
+                res = num3 + " is the largest number";
+            }
+            document.getElementById('result1').innerText = res
+        }
+
+        function toggleButton() {
+            const v1 = document.getElementById('textbox1').value.trim();
+            const v2 = document.getElementById('textbox2').value.trim();
+            const v3 = document.getElementById('textbox3').value.trim();
+
+            const btn = document.getElementById('checkBtn');
+
+            if (v1 !== '' && v2 !== '' && v3 !== '') {
+                btn.disabled = false;   // enable button
+            } else {
+                btn.disabled = true;    // disable button
+            }
+
+            document.getElementById('result1').innerText = "";
+        }
+
+    </script>
+
+
+    <!-- Task 3
+Create 1 dropdown with Caste Options and One Other Option
+On dropdown Change if Other is selected show other textbox else hide -->
+    <br>
+    <div class="row">
+        <div class="col-3">
+            <div class="select">
+                <select class="form-select" id="selectDrop" onchange="checkCaste()">
+                    <option>OBC</option>
+                    <option>SC-NT</option>
+                    <option>Open</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col-3">
+            <input class="form-control" id="drpdwnText" style="display:none;" placeholder="Enter Other Caste" />
+        </div>
+    </div>
+    <script>
+        function checkCaste() {
+            let selectedValue = document.getElementById('selectDrop').value;
+            let textBox = document.getElementById('drpdwnText');
+
+            if (selectedValue === "Other") {
+                textBox.style.display = "block";
+            } else {
+                textBox.style.display = "none";
+            }
+        }
+    </script>
+
+    <!-- Advanced tasks -->
+    <!-- task 2-->
+
+    <div class="row">
+        <div class="col-4">
+            <input type="text" id="text-1" class="form-control" placeholder="Student name" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <input type="text" id="text-sub1" class="form-control" placeholder="Math" />
+        </div>
+        <div class="col-2">
+            <input type="text" id="text-sub2" class="form-control" placeholder="English" />
+        </div>
+        <div class="col-2">
+            <input type="text" id="text-sub3" class="form-control" placeholder="Physics" />
+        </div>
+        <div class="col-2">
+            <input type="text" id="text-sub4" class="form-control" placeholder="Chemistry" />
+        </div>
+        <div class="col-2">
+            <input type="text" id="text-sub5" class="form-control" placeholder="History" />
+        </div>
+    </div>
+    <button class="btn btn-secondary" onclick="clrTxt()">Clear</button>
+    <button class="btn btn-primary" onclick="clculateSubmarks()">Calculate result</button>
+
+    <script>
+        function clculateSubmarks() {
+            var sub1 = Number(document.getElementById('text-sub1').value);
+            var sub2 = Number(document.getElementById('text-sub2').value);
+            var sub3 = Number(document.getElementById('text-sub3').value);
+            var sub4 = Number(document.getElementById('text-sub4').value);
+            var sub5 = Number(document.getElementById('text-sub5').value);
+
+            var sub = sub1 + sub2 + sub3 + sub4 + sub5
+            if (sub >= 300) {
+                alert('Student Passed')
+            } else {
+                alert('Student Failed')
+            }
+
+        }
+
+        function clrTxt() {
+             document.getElementById('text-1').value = '';
+            document.getElementById('text-sub1').value = '';
+            document.getElementById('text-sub2').value = '';
+            document.getElementById('text-sub3').value = '';
+            document.getElementById('text-sub4').value = '';
+            document.getElementById('text-sub5').value = '';
+        }
+    </script>
+   
+    <div class="row">
+        <div class="col-1">
+            <button class="btn bg-primary" onclick="toggleDiv1()">Toggle</button>
+        </div>
+        <div class="col-3">
+            <input type="text" id="inp-1"  class="form-control" oninput="compareValues()"/>
+        </div>
+        <div class="col-3">
+           <input type="text" id="inp-2"  class="form-control" oninput="compareValues()" />
+        </div>
+    </div>
+
+    <!-- DIV 1 -->
+<div id="div1" style="width:200px;height:80px;background:#d2f5ff;margin-bottom:20px;padding:10px;">
+    This is DIV 1
+</div>
+
+<!-- DIV 2 -->
+<div id="div2" style="width:200px;height:80px;background:#ffd6d6;padding:10px;">
+    This is DIV 2
+</div>
+    
+    
+<script>
+    var isDiv1Visible = true;
+       function toggleDiv1() {
+        isDiv1Visible = !isDiv1Visible;   // flip true/false
+
+        let div1 = document.getElementById('div1');
+
+        if (isDiv1Visible) {
+            div1.style.display = "block";   // show
+        } else {
+            div1.style.display = "none";    // hide
+        }
+    }
+
+     function compareValues() {
+        let v1 = document.getElementById('inp-1').value;
+        let v2 = document.getElementById('inp-2').value;
+
+        let div2 = document.getElementById('div2');
+
+        if (v1 === v2) {
+            div2.style.display = "none";   // hide if same
+        } else {
+            div2.style.display = "block";  // show if different
+        }
+    }
+</script>
+
+<div class="row">
+    <div class="col-4">
+        <input type="text" class="form-control" id="aadharInput" placeholder="Enter Aadhar Number">
+    </div>
+</div>
+
+<br>
+ <p id="msg" style="font-weight: bold;"></p>
+<button class="btn btn-primary" onclick="verifyAadhar()">Verify</button>
+
+
+
+<script>
+function verifyAadhar() {
+
+    let aadhar = document.getElementById("aadharInput").value.trim();
+    let msgBox = document.getElementById("msg");
+
+    // 1️⃣ Check empty field
+    if (aadhar === "") {
+        msgBox.innerText = "Provide Input";
+        msgBox.style.color = "red";
+        return;
+    }
+
+    // 2️⃣ Aadhar must be a 12-digit number
+    if (aadhar.length === 12 && !isNaN(aadhar)) {
+        msgBox.innerText = "Aadhar Verified";
+        msgBox.style.color = "green";
+    } else {
+        msgBox.innerText = "Please Provide Correct Aadhar Number";
+        msgBox.style.color = "red";
+    }
+}
+</script>
+
+    
+</body>
+
+
+
+</html>
